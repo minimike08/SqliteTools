@@ -54,6 +54,7 @@
     if(!columnsToSelect || columnsToSelect.count == 0)
         columnsToSelect = @[@"*"];
     
+    //Create string for SELECT statement.
     NSString* columnsString;
     for(NSString* column in columnsToSelect)
     {
@@ -68,6 +69,7 @@
     if(self.currentStatus != Success)
         return nil;
     
+    //Enumerate all the returned rows and create an array of dictionaries of the key-values.
     NSMutableArray* result = [NSMutableArray new];
     NSArray* columnTypes;
     NSArray* columnNames = [self getColumnNamesForTable];
@@ -115,6 +117,8 @@
     if(self.currentStatus != Success)
         return nil;
     
+    
+    //Execute the sql statement and return the value found.
     sqlite3_step(statement);
     int columnType = sqlite3_column_type(statement, 0);
     id result;
@@ -165,6 +169,7 @@
     if(!columnValueDictionary || columnValueDictionary.count == 0)
         return NoColumnsSpecifiedForUpdate;
     
+    //Create string for update statement.
     NSString* updateListString;
     for(NSString* column in columnValueDictionary)
     {
