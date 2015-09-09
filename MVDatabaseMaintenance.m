@@ -10,6 +10,8 @@
 
 @implementation MVDatabaseMaintenance
 
+// Initializes the tool using the database inside the ManagedObjectContext.
+// Returns the initialized object.
 -(id)initWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext
 {
     if([[[managedObjectContext persistentStoreCoordinator] persistentStores] count] > 0)
@@ -18,6 +20,8 @@
         return nil;
 }
 
+// Initializes the tool using the database located at the url.
+// Returns the initialized object.
 -(id)initWithURL:(NSURL*)url
 {
     self = [super init];
@@ -29,6 +33,8 @@
     return self;
 }
 
+// Updates all the tables in the database to set all the "Z_OPT" values to 1.
+// Sets the "Z_MAX" values in the "Z_PRIMARYKEY" table to the max "Z_PK" value in each table.
 -(NSInteger)prepareDatabaseForCoreData
 {
     if([sqlite openDatabaseAtURL:dbURL] != Success)
